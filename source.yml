@@ -15,5 +15,4 @@
 name: ros2.official
 
 imports:
-    - type: local
-      url: ros2_base-package_set
+    - github: orise-robotics/ros2.base-package_set
