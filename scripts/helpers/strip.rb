@@ -34,7 +34,10 @@ def strip_packages_hash(hash)
 end
 
 def strip_deps_uri(uri)
+  python_version = Autoproj.workspace.config.get('python_version', nil)
+  ros_hash = {:python3_pkgversion => "3", :__isa_name => "non-existant"}
   data = URI.open(uri).read
+  data = data % ros_hash
   data = YAML.load(data).delete_if do |key|
       ['cmake', 'mercurial', 'git', 'python', 'python-setuptools'].include? key
   end
