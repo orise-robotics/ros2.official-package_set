@@ -45,9 +45,12 @@ end
 files = ['base', 'python', 'ruby']
 files.each do |file|
   data = strip_deps_uri("https://raw.githubusercontent.com/ros/rosdistro/master/rosdep/#{file}.yaml")
+  # Hack to remove aliases
+  data_json = data.to_json
+  data_yaml = YAML.load(data_json)
   if data
     open(ROOT_DIR.join("#{file}.osdeps"), 'w') do |f|
-        f.puts data.to_yaml
+        f.puts data_yaml.to_yaml
     end
   end
 end
